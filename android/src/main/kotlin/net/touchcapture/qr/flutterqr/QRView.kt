@@ -223,7 +223,7 @@ class QRView(private val context: Context, messenger: BinaryMessenger, private v
                             val code = mapOf(
                                     "code" to result.text,
                                     "type" to result.barcodeFormat.name,
-                                    "metaData" to result.resultMetaData,
+                                    "metadata" to result.resultMetadata,
                                     "rawBytes" to result.rawBytes)
                             channel.invokeMethod("onRecognizeQR", code)
                         }
