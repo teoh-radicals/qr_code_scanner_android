@@ -6,10 +6,11 @@ import 'barcode_format.dart';
 /// [format] displays which type the code is.
 /// Only for Android and iOS, [rawBytes] gives a list of bytes of the result.
 class Barcode {
-  Barcode(this.code, this.format, this.rawBytes);
+  Barcode(this.code, this.format, this.rawBytes, this.extension);
 
   final String? code;
   final BarcodeFormat format;
+  final String? extension;
 
   /// Raw bytes are only supported by Android and iOS.
   final List<int>? rawBytes;

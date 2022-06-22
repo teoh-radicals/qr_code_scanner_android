@@ -191,7 +191,7 @@ class _WebQrViewState extends State<WebQrView> {
     // ignore: unnecessary_null_comparison
     if (code != null) {
       _scanUpdateController
-          .add(Barcode(code.data, BarcodeFormat.qrcode, code.data.codeUnits));
+          .add(Barcode(code.data, BarcodeFormat.qrcode, code.data.codeUnits, null));
     }
   }
 

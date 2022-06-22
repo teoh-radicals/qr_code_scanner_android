@@ -1,6 +1,6 @@
 name: qr_code_scanner
 description: QR code scanner that can be embedded inside flutter. It uses zxing in Android.Only Android is supported.
-version: 0.6.3
+version: 0.7.0
 homepage: https://radicals.io
 repository: https://github.com/teoh-radicals/qr_code_scanner_android
 
