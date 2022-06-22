@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -195,6 +196,7 @@ class QRViewController {
             final rawBytes = args['rawBytes'] as List<int>?;
             final format = BarcodeTypesExtension.fromString(rawType);
             if (format != BarcodeFormat.unknown) {
+              print(args['metaData']);
               final barcode = Barcode(code, format, rawBytes);
               _scanUpdateController.sink.add(barcode);
             } else {
