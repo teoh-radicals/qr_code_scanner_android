@@ -220,10 +220,16 @@ class QRView(private val context: Context, messenger: BinaryMessenger, private v
                 object : BarcodeCallback {
                     override fun barcodeResult(result: BarcodeResult) {
                         if (allowedBarcodeTypes.size == 0 || allowedBarcodeTypes.contains(result.barcodeFormat)) {
+                            var extension = ""
+                            if (result.resultMetadata != null) {
+                                for ((key, value) in result.resultMetadata) {
+                                    if (key.toString() == "UPC_EAN_EXTENSION") extension = value.toString()
+                                }
+                            }
                             val code = mapOf(
                                     "code" to result.text,
                                     "type" to result.barcodeFormat.name,
-                                    "metadata" to result.resultMetadata,
+                                    "upcEanExtension" to extension,
                                     "rawBytes" to result.rawBytes)
                             channel.invokeMethod("onRecognizeQR", code)
                         }
