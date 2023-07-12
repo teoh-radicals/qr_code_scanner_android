@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +65,7 @@ class _QRViewState extends State<QRView> {
   void initState() {
     super.initState();
     _observer = LifecycleEventHandler(resumeCallBack: updateDimensions);
-    WidgetsBinding.instance!.addObserver(_observer);
+    WidgetsBinding.instance.addObserver(_observer);
   }
 
   @override
@@ -84,7 +83,7 @@ class _QRViewState extends State<QRView> {
   @override
   void dispose() {
     super.dispose();
-    WidgetsBinding.instance!.removeObserver(_observer);
+    WidgetsBinding.instance.removeObserver(_observer);
   }
 
   Future<void> updateDimensions() async {
@@ -119,6 +118,7 @@ class _QRViewState extends State<QRView> {
     if (kIsWeb) {
       _platformQrView = createWebQrView(
         onPlatformViewCreated: widget.onQRViewCreated,
+        onPermissionSet: widget.onPermissionSet,
         cameraFacing: widget.cameraFacing,
       );
     } else {
