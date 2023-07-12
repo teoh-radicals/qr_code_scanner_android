@@ -115,37 +115,14 @@ class _QRViewState extends State<QRView> {
 
   Widget _getPlatformQrView() {
     Widget _platformQrView;
-    if (kIsWeb) {
-      _platformQrView = createWebQrView(
-        onPlatformViewCreated: widget.onQRViewCreated,
-        onPermissionSet: widget.onPermissionSet,
-        cameraFacing: widget.cameraFacing,
-      );
-    } else {
-      switch (defaultTargetPlatform) {
-        case TargetPlatform.android:
-          _platformQrView = AndroidView(
-            viewType: 'net.touchcapture.qr.flutterqr/qrview',
-            onPlatformViewCreated: _onPlatformViewCreated,
-            creationParams:
-                _QrCameraSettings(cameraFacing: widget.cameraFacing).toMap(),
-            creationParamsCodec: const StandardMessageCodec(),
-          );
-          break;
-        case TargetPlatform.iOS:
-          _platformQrView = UiKitView(
-            viewType: 'net.touchcapture.qr.flutterqr/qrview',
-            onPlatformViewCreated: _onPlatformViewCreated,
-            creationParams:
-                _QrCameraSettings(cameraFacing: widget.cameraFacing).toMap(),
-            creationParamsCodec: const StandardMessageCodec(),
-          );
-          break;
-        default:
-          throw UnsupportedError(
-              "Trying to use the default qrview implementation for $defaultTargetPlatform but there isn't a default one");
-      }
-    }
+    _platformQrView = AndroidView(
+      viewType: 'net.touchcapture.qr.flutterqr/qrview',
+      onPlatformViewCreated: _onPlatformViewCreated,
+      creationParams:
+          _QrCameraSettings(cameraFacing: widget.cameraFacing).toMap(),
+      creationParamsCodec: const StandardMessageCodec(),
+    );
+
     return _platformQrView;
   }
 
@@ -195,7 +172,8 @@ class QRViewController {
             // Raw bytes are only supported by Android.
             final rawBytes = args['rawBytes'] as List<int>?;
             final format = BarcodeTypesExtension.fromString(rawType);
-            final extension = args['upcEanExtension'] == ''? null :args['upcEanExtension'];
+            final extension =
+                args['upcEanExtension'] == '' ? null : args['upcEanExtension'];
             if (format != BarcodeFormat.unknown) {
               final barcode = Barcode(code, format, rawBytes, extension);
               _scanUpdateController.sink.add(barcode);
